@@ -1,0 +1,1 @@
+Petit exercice pour découvrir la POO en php.

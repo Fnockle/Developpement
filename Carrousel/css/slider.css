@@ -1,0 +1,43 @@
+body {
+  background-image: url("../images/concrete_seamless.png");
+}
+
+.hidden {
+  display: flex;
+}
+
+header nav ul {
+  display: none;
+  justify-content: center;
+  list-style: none;
+  padding:0;
+}
+
+header nav li {
+  padding: 1%;
+}
+
+figure {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+header a {
+  display: block;
+  margin: 100px 0 0 100px;
+}
+
+main img {
+  border: 20px solid white;
+  border-radius: 50px;
+}
+
+figcaption {
+  margin-top: 20px;
+  background-color: bisque;
+  border-radius: 10px;
+  padding: 10px 15px 10px 15px;
+}
+

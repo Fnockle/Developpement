@@ -1,0 +1,68 @@
+<?php require('includes/header.php'); ?>
+
+    <h2><i class="fa fa-cogs"></i> Panneau d'administration</h2>
+
+
+
+        <h2 style="float: right"><a href="logout.php">Deconnexion</a></h2>
+        <nav>
+            <a href="add_post.php">Rédiger un nouvel article</a>
+        </nav>
+
+        <table>
+            <caption>Liste des articles</caption>
+            <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Article</th>
+                <th>Auteur</th>
+                <th>Catégorie</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            Tout cocher: <input type="checkbox" onclick="test(document.querySelectorAll('input'));"><br>
+            <form method="post" action="delete_post.php">
+
+                <?php
+
+                foreach ($allArt as $art) {
+
+                    ?>
+
+                    <tr>
+
+                        <td><a href="show_post.php?id_art=<?=htmlspecialchars($art['id_art'])?>"><?=htmlspecialchars($art['title'])?></a></td>
+
+                        <td><?=htmlspecialchars($art['content'])?></td>
+
+                        <td><?=htmlspecialchars($art['name_author'])?></td>
+
+                        <td><?=htmlspecialchars($art['name_cat'])?></td>
+
+                        <td>
+
+                            <a class="edit" href="edit_post.php?id_art=<?=htmlspecialchars($art['id_art'])?>"><i class="fa fa-pencil"></i></a>
+                            <input type="checkbox" name="id_art[]" value="<?=htmlspecialchars($art['id_art'])?>">
+
+
+                        </td>
+
+                    </tr>
+
+                    <?php
+
+                }
+
+
+                ?>
+
+                <button type="submit">Supprimer</button>
+
+            </form>
+
+            </tbody>
+
+        </table>
+
+<?php require('includes/footer.php'); ?>

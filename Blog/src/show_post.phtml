@@ -1,0 +1,74 @@
+<?php require('includes/header.php'); ?>
+
+
+<!-- Page d'article de blog détaillé avec les commentaires -->
+<h2><i class="fa fa-file-text-o"></i> Article</h2>
+
+<!-- Article du blog -->
+<section class="post">
+<h3><?=htmlspecialchars($Article['title'])?></h3>
+<article><?=htmlspecialchars($Article['content'])?></article>
+<p><?='Rédiger par '.htmlspecialchars($Article['name_author']).' le '.htmlspecialchars($Article['date_time'])?></p>
+</section>
+
+<hr>
+<!-- Liste des commentaires de l'article du blog -->
+
+<?php
+
+    foreach ($Comments as $comment) {
+
+
+        echo '<section>';
+        echo '<h4>' . '<i class="fa fa-comment"></i> ' . 'Rédiger par ' . htmlspecialchars($comment['pseudo']) . '</h4>';
+        echo '<article>' . htmlspecialchars($comment['content_com']) . '</article>';
+        echo '<p>' . htmlspecialchars($comment['date_comment']) . '</p>';
+        echo '</section>';
+
+
+    }
+
+?>
+
+
+<hr>
+<!-- Formulaire de saisie d'un nouveau commentaire pour cet article -->
+
+
+<form method="post" class="generic-form" action="add_comment.php">
+<input type="hidden" name="id_art" value="<?= $_GET['id_art'] ?? 'devrait avoir id article' ?>">
+    <fieldset>
+        <legend>Nouveau commentaire</legend>
+        <ul>
+
+            <li>
+                <label>Pseudo : </label>
+                <input type="text" id="nickName" name="nickName">
+            </li>
+
+            <li>
+                <label>Commentaire : </label>
+                <textarea id="contents" name="contents" rows="5"></textarea>
+            </li>
+
+            <li>
+                <button class="button button-primary" type="submit">Enregistrer</button>
+                <a class="button button-cancel" href="index.php">Annuler</a>
+            </li>
+
+        </ul>
+
+
+
+
+    </fieldset>
+
+
+</form>
+
+
+
+
+
+
+<?php require('includes/footer.php'); ?>

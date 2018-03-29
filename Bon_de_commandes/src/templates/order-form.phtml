@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/order-form.css">
+    <title>Détail</title>
+  </head>
+  <body>
+  <section>
+      <h1>Bons de commande</h1>
+
+      <a href="index.php">Retourner à l'accueil</a>
+
+      <!-- Etiquette avec fiche client -->
+      <article class="order-form-customer">
+
+          <h2><?=htmlspecialchars($customerDetails['customerName'])?></h2>
+          <h3><?=htmlspecialchars($customerDetails['contactName'])?></h3>
+          <p><?=htmlspecialchars($customerDetails['addressLine1'])?></p>
+          <p><?=htmlspecialchars($customerDetails['city'])?></p>
+
+
+      </article>
+      <hr>
+
+      <!-- Le bon de commande -->
+      <table class="standard-table">
+          <caption><?='Bon de commande n°'.htmlspecialchars($_GET["orderNumber"])?></caption>
+          <thead>
+            <tr>
+                <th>Produit</th>
+                <th class="money-column">Prix Unitaire</th>
+                <th>Quantité</th>
+                <th class="money-column">Prix Total</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <?php $total=0;
+
+                foreach ($orderDetails as $orderDetail) {
+
+                    echo '<tr>';
+                    echo '<td>'.htmlspecialchars($orderDetail['productName']).'</td>';
+                    echo '<td class="money-column">'.htmlspecialchars($format_francais = number_format($orderDetail['buyPrice'], 2, ',', ' ')).' €'.'</td>';
+                    echo '<td>'.htmlspecialchars($orderDetail['quantityOrdered']).'</td>';
+                    echo '<td class="money-column">'.htmlspecialchars($format_francais = number_format($orderDetail['priceTotal'], 2, ',', ' ')).' €'.'</td>';
+                    echo '</tr>';
+                    $total += htmlspecialchars($orderDetail['priceTotal']);
+
+
+                }
+
+                $tva = (20/100)*$total;
+                $totalTTC = $tva + $total;
+
+            ?>
+          </tbody>
+          
+          <tfoot>
+
+          <tr>
+              <th colspan="3">Montant Total HT</th>
+              <th><?=htmlspecialchars($format_francais = number_format($total, 2, ',', ' ')).' €'?></th>
+          </tr>
+
+          <tr>
+              <th colspan="3">TVA (20 %)</th>
+              <th><?=htmlspecialchars($format_francais = number_format($tva, 2, ',', ' ')).' €'?></th>
+          </tr>
+
+          <tr>
+              <th colspan="3">Montant Total TTC</th>
+              <th><?=htmlspecialchars($format_francais = number_format($totalTTC, 2, ',', ' ')).' €'?></th>
+          </tr>
+
+          </tfoot>
+      </table>
+
+  </section>
+  </body>
+</html>

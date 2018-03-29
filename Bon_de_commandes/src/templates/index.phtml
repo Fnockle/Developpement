@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/order-form.css">
+    <title>Bons de commande</title>
+  </head>
+  <body>
+  <section>
+
+      <h1>Bons de commande</h1>
+
+      <form method="post" id="pages">
+
+          <select onchange="document.querySelector('#pages').submit();" name='pagination'">
+
+
+            <?php
+
+            for ($i=0; $i < (htmlspecialchars($pagesOrder['totalOrder'])/LIMIT_PER_PAGE); $i++) {
+
+                if (htmlspecialchars($_POST['pagination']) == ($i*LIMIT_PER_PAGE)) {
+                    echo '<option selected value="'.($i*LIMIT_PER_PAGE).'">'.($i+1).'</option>';
+
+                }else echo '<option value="'.($i*LIMIT_PER_PAGE).'">'.($i+1).'</option>';
+
+              }
+
+            ?>
+
+          </select>
+
+      </form>
+
+  </section>
+  <table class="standard-table">
+      <caption>Liste des commandes</caption>
+      <thead>
+      <tr>
+          <th>Commande</th>
+          <th>Date de la commande</th>
+          <th>Date de livraison</th>
+          <th>Statut</th>
+      </tr>
+      </thead>
+      <tbody>
+      <?php
+
+            foreach ($orders as $order) {
+
+                echo '<tr>';
+                echo '<td>'.'<a href="order-form.php?orderNumber='.htmlspecialchars($order['orderNumber']).'">'.htmlspecialchars($order['orderNumber']).'</a>'.'</td>';
+                echo '<td>'.htmlspecialchars($order['orderDate']).'</td>';
+                echo '<td>'.htmlspecialchars($order['shippedDate']).'</td>';
+                echo '<td>'.htmlspecialchars($order['status']).'</td>';
+                echo '</tr>';
+
+
+            }
+
+      ?>
+      </tbody>
+  </table>
+  </body>
+</html>

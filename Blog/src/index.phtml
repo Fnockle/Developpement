@@ -1,0 +1,52 @@
+<?php require('includes/header.php'); ?>
+
+
+<!-- Page d'accueil -->
+<h2><i class="fa fa-home"></i> Accueil</h2>
+
+<!-- Liste des articles du blog -->
+
+    <ul class="post-list">
+        <?php
+
+        foreach ($Articles as $Article) {
+
+            echo '<li class="post">'.
+                '<a href="show_post.php?id_art='.htmlspecialchars($Article['id_art']).'">'.
+                '<h3>'.'<i class="fa fa-hand-o-right"></i> '.htmlspecialchars($Article['title']).'</h3>'.
+                '</a>'.
+                '<article>'.htmlspecialchars($Article['content']).'</article>'.
+                '<p>'.htmlspecialchars($Article['date_time']).'</p>'.
+                '</li>';
+        }
+
+
+
+        ?>
+    </ul>
+
+
+    <form method="post" id="pages">
+
+        <select onchange="document.querySelector('#pages').submit();" name='pagination' ">
+
+
+            <?php
+
+                for ($i=0; $i < (htmlspecialchars($pagesArt['totalArticle'])/LIMIT_PER_PAGE); $i++) {
+
+                    if (htmlspecialchars($_POST['pagination']) == ($i*LIMIT_PER_PAGE)) {
+                        echo '<option selected value="'.($i*LIMIT_PER_PAGE).'">'.($i+1).'</option>';
+
+                    }else echo '<option value="'.($i*LIMIT_PER_PAGE).'">'.($i+1).'</option>';
+
+                }
+
+            ?>
+
+        </select>
+
+    </form>
+
+
+<?php require('includes/footer.php'); ?>
