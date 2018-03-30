@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>To do List</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans">
+    <link rel="stylesheet" href="css/todolist.css">
+</head>
+  <body>
+  	<main>
+      <section>
+          <h1>Gestionnaire de tâches :-)</h1>
+
+  					<!-- Formulaire listant toutes les tâches existantes avec possibilité de suppression. -->
+  			<form class="standard-form" action="actions/remove.php" method="POST">
+  				<ul class="task-list">
+            <?php
+            foreach ($tasks as $index => $task) {
+              ?>
+                <li>
+                  <input type="checkbox" name="indexes[]" value="<?= $index ?>">
+                  <label class="<?= $task[3] ?>">
+                    <?= $task[0] ?>
+                        <?php if(date_create($task[2]) < date_create()) {
+
+                          echo '<strong>- en retard</strong>';
+
+                        } ?>
+
+                  </label>
+                  <p><?= $task[1] ?></p>
+                </li>
+            <?php
+            }  ?>
+
+            <li>
+                <input name="delete" value="Supprimer" title="Supprimer les tâches sélectionnées" type="submit">
+                <input name="allDelete" value="Supprimer toutes les tâches" title="Supprimer toutes les tâches" type="submit">
+            </li>
+  				</ul>
+  			</form>
+  			<hr>
+      </section>
+
+      <section>
+          <!-- Formulaire d'ajout de tâche -->
+          <form class="standard-form label-left" action="actions/add.php" method="POST">
+              <fieldset>
+                  <legend>Informations sur la tâche</legend>
+                  <ul>
+                      <li>
+                          <label for="title">Titre :</label>
+                          <input id="title" name="title" type="text" required>
+                      </li>
+                      <li>
+                          <label for="description">Tâche :</label>
+                          <textarea id="description" name="description" rows="5"></textarea>
+                      </li>
+                      <li>
+                          <label for="date">Date de fin :</label>
+                          <input type="date" id="date" name="date" required>
+
+                      <li>
+                          <label>Priorité :</label>
+                          <input id="priority-low" name="priority" type="radio" value="priority-low">
+                          <label for="priority-low">Basse</label>
+                          <input id="priority-normal" name="priority" type="radio" value="priority-normal">
+                          <label for="priority-normal">Normale</label>
+                          <input id="priority-high" name="priority" type="radio" value="priority-high">
+                          <label for="priority-high">Haute</label>
+                      </li>
+                      <li>
+                          <input type="submit" value="Ajouter" title="Ajouter une nouvelle tâche">
+                      </li>
+                  </ul>
+              </fieldset>
+          </form>
+      </section>
+    </main>
+  </body>
+</html>
