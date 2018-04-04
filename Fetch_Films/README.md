@@ -1,0 +1,1 @@
+Exercice pour découvrir la fonction "fetch" en JS (alternative à AJAX XMLHttpRequest).
